@@ -1,8 +1,6 @@
 extern crate png_framing;
 extern crate screen_framing;
-extern crate framing;
 
-use framing::video::ChunkyFrame;
 use screen_framing::{Capturer, Display};
 use png_framing::Png;
 use std::io::ErrorKind::WouldBlock;
@@ -36,10 +34,11 @@ fn main() {
         };
         
         println!("Captured! Saving...");
-        match Png::from(ChunkyFrame::new(frame)).save("screenshot.png") {
+        match Png::new(frame).save("screenshot.png") {
             Ok(_) => println!("Image saved to `screenshot.png`."),
             Err(_) => println!("Couldn't save image to `screenshot.png`.")
         }
+        
         break;
     }
 }
