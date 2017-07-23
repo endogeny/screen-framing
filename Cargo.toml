@@ -1,0 +1,20 @@
+[package]
+name = "screen-framing"
+version = "0.1.0"
+authors = ["Ram <quadrupleslap@gmail.com>"]
+
+[package]
+name = "screen-framing"
+description = "Screen capture."
+license = "MIT"
+version = "0.1.0"
+authors = ["Ram <quadrupleslap@gmail.com>"]
+repository = "https://github.com/endogeny/screen-framing"
+documentation = "https://docs.rs/screen-framing"
+
+[dependencies]
+framing = "0.2"
+scrap = "0.3"
+
+[dev-dependencies]
+png-framing = "0.1"
