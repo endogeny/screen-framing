@@ -1,10 +1,5 @@
 [package]
 name = "screen-framing"
-version = "0.1.0"
-authors = ["Ram <quadrupleslap@gmail.com>"]
-
-[package]
-name = "screen-framing"
 description = "Screen capture."
 license = "MIT"
 version = "0.1.0"
