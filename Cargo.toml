@@ -2,14 +2,14 @@
 name = "screen-framing"
 description = "Screen capture."
 license = "MIT"
-version = "0.1.1"
+version = "0.2.0"
 authors = ["Ram <quadrupleslap@gmail.com>"]
 repository = "https://github.com/endogeny/screen-framing"
 documentation = "https://docs.rs/screen-framing"
 
 [dependencies]
-framing = "0.2"
+framing = "0.3"
 scrap = "0.3"
 
 [dev-dependencies]
-png-framing = "0.2"
+png-framing = "0.3"

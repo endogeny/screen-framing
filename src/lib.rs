@@ -6,7 +6,7 @@ extern crate framing;
 extern crate scrap;
 
 pub use scrap::Display;
-use framing::video::{VideoFrame, Rgba};
+use framing::{Image, Rgba};
 use std::{io, mem, ptr};
 
 /// A screen-capturing session.
@@ -49,7 +49,7 @@ pub struct Frame<'a> {
     height: usize
 }
 
-impl<'a> VideoFrame for Frame<'a> {
+impl<'a> Image for Frame<'a> {
     type Pixel = Rgba;
 
     fn width(&self) -> usize { self.width }
