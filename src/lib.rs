@@ -35,8 +35,8 @@ impl Capturer {
     /// time, since in most cases the memory is reused.
     pub fn frame(&mut self) -> io::Result<Frame> {
         Ok(Frame {
-            width: self.width(),
-            height: self.height(),
+            width: self.capturer.width(),
+            height: self.capturer.height(),
             frame: self.capturer.frame()?
         })
     }
