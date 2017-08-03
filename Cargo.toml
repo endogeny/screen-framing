@@ -1,8 +1,9 @@
 [package]
 name = "screen-framing"
 description = "Screen capture."
+keywords = ["screen", "capture", "record", "frame", "nonblocking"]
 license = "MIT"
-version = "0.2.0"
+version = "0.2.1"
 authors = ["Ram <quadrupleslap@gmail.com>"]
 repository = "https://github.com/endogeny/screen-framing"
 documentation = "https://docs.rs/screen-framing"
