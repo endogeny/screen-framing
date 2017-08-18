@@ -6,8 +6,8 @@ extern crate framing;
 extern crate scrap;
 
 pub use scrap::Display;
-use framing::{Image, Rgba};
-use std::{io, mem, ptr};
+use framing::{Chunky, Bgra};
+use std::io;
 
 /// A screen-capturing session.
 ///
@@ -33,43 +33,25 @@ impl Capturer {
     /// Captures a frame, but returns `Err(WouldBlock)` if the operating system
     /// doesn't have a frame for us yet. Only one frame can be borrowed at a
     /// time, since in most cases the memory is reused.
-    pub fn frame(&mut self) -> io::Result<Frame> {
-        Ok(Frame {
-            width: self.capturer.width(),
-            height: self.capturer.height(),
-            frame: self.capturer.frame()?
-        })
+    pub fn frame(&mut self) -> io::Result<Chunky<Bgra, Screenshot>> {
+        Ok(Chunky::from_bytes(
+            self.capturer.width(),
+            self.capturer.height(),
+            Screenshot { frame: self.capturer.frame()? }
+        ))
     }
 }
 
 /// A captured frame.
-pub struct Frame<'a> {
-    frame: scrap::Frame<'a>,
-    width: usize,
-    height: usize
+pub struct Screenshot<'a> {
+    frame: scrap::Frame<'a>
 }
 
-impl<'a> Image for Frame<'a> {
-    type Pixel = Rgba;
-
-    fn width(&self) -> usize { self.width }
-    fn height(&self) -> usize { self.height }
-
-    unsafe fn pixel(&self, x: usize, y: usize) -> Self::Pixel {
-        let mut pix: [u8; 4] = mem::uninitialized();
-        let off = 4 * (y * self.width + x) as isize;
-
-        ptr::copy_nonoverlapping(
-            self.frame.as_ptr().offset(off),
-            pix.as_mut_ptr(),
-            4
-        );
-
-        let base = pix.as_mut_ptr();
-        mem::swap(&mut *base, &mut *base.offset(2));
-        pix.into()
+impl<'a> AsRef<[u8]> for Screenshot<'a> {
+    fn as_ref(&self) -> &[u8] {
+        self.frame.as_ref()
     }
 }
 
-unsafe impl<'a> Sync for Frame<'a> {}
-unsafe impl<'a> Send for Frame<'a> {}
+unsafe impl<'a> Sync for Screenshot<'a> {}
+unsafe impl<'a> Send for Screenshot<'a> {}
